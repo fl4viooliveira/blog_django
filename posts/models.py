@@ -30,7 +30,12 @@ class Post(models.Model):
     def get_like_url(self):
         return reverse("like", kwargs={
         "slug": self.slug
-        })    
+        })
+
+    @property
+    def comments(self):
+         return self.comment_set.all()
+
 
     @property
     def get_comment_count(self):
@@ -52,7 +57,7 @@ class Comment(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return self.user.usename
+        return self.user.username
 
 
 class PostView(models.Model):
@@ -61,7 +66,7 @@ class PostView(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.user.usename
+        return self.user.username
 
 
 class Like(models.Model):
@@ -69,4 +74,4 @@ class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
    
     def __str__(self):
-        return self.user.usename
+        return self.user.username
