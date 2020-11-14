@@ -19,7 +19,7 @@ class PostDetailView(DetailView):
             comment.save()
             return redirect("detail", slug=post.slug)
         return redirect("detail", slug=self.get_object().slug)
-        
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -28,7 +28,7 @@ class PostDetailView(DetailView):
         })
         return context
 
-    
+
     def get_object(self, **kwargs):
         object = super().get_object(**kwargs)
         if self.request.user.is_authenticated:
@@ -46,7 +46,7 @@ class PostCreateView(CreateView):
             'view_type': 'create'
         })
         return context
-    
+
 
 class PostUpdateView(UpdateView):
     form_class = PostForm
@@ -59,8 +59,8 @@ class PostUpdateView(UpdateView):
             'view_type': 'update'
         })
         return context
-    
- 
+
+
 
 class PostDeleteView(DeleteView):
     model = Post
@@ -75,5 +75,8 @@ def like(request, slug):
         return redirect('detail', slug=slug)
     Like.objects.create(user=request.user, post=post)
     return redirect('detail', slug=slug)
+
+
+
 
 
